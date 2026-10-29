@@ -14,7 +14,7 @@ services:
     region: singapore
 
     # build ทั้ง frontend และสร้างตารางในฐานข้อมูลให้เรียบร้อยก่อนสตาร์ท
-    buildCommand: npm ci && npm run deploy:prepare
+    buildCommand: npm ci --include=dev && npm run deploy:prepare
     startCommand: npm start
 
     healthCheckPath: /api/health
