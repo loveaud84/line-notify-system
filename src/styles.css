@@ -1,0 +1,63 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans Thai', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes loginSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(30, 58, 95, 0.25);
+  border-radius: 4px;
+}
+
+a {
+  color: #1c4e8a;
+}
+
+a:hover {
+  color: #143a68;
+}
+
+/* The design expressed hover states through a `style-hover` attribute; they
+   become plain CSS classes here. */
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.row-action:hover {
+  filter: brightness(0.97);
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #4a7fb5;
+}

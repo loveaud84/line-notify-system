@@ -1,0 +1,45 @@
+{
+  "name": "line-notify-system",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "ระบบแจ้งเตือนนักศึกษาผ่าน LINE Official Account",
+  "scripts": {
+    "dev": "concurrently -n web,api -c cyan,magenta \"vite\" \"node server/index.js\"",
+    "dev:web": "vite",
+    "dev:api": "node server/index.js",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false",
+    "db:migrate": "node server/db/migrate.js",
+    "db:seed": "node server/db/seed.js",
+    "db:reset": "node server/db/seed.js --reset",
+    "db:setup": "npm run db:migrate && npm run db:seed",
+    "start": "node server/index.js",
+    "db:create-admin": "node server/db/create-admin.js",
+    "deploy:prepare": "npm run build && npm run db:migrate"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "compression": "^1.8.2",
+    "connect-pg-simple": "^10.0.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.7.1",
+    "express-session": "^1.19.0",
+    "helmet": "^8.3.0",
+    "pg": "^8.23.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11"
+  },
+  "engines": {
+    "node": ">=20 <23"
+  }
+}

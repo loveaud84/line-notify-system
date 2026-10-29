@@ -1,0 +1,46 @@
+# Render Blueprint — ระบบแจ้งเตือนนักศึกษาผ่าน LINE
+#
+# ใช้กับ Render (https://render.com) โดยกด New → Blueprint แล้วชี้มาที่ repo นี้
+#
+# ตั้งใจไม่ประกาศฐานข้อมูลไว้ในไฟล์นี้ เพราะ PostgreSQL ฟรีของ Render จะหมดอายุ
+# และถูกลบหลัง 30 วัน ซึ่งไม่เหมาะกับข้อมูลนักศึกษา ให้ใช้ Neon (ฟรีแบบไม่หมดอายุ)
+# แล้วนำ connection string มาใส่ที่ DATABASE_URL
+
+services:
+  - type: web
+    name: line-notify-system
+    runtime: node
+    plan: free
+    region: singapore
+
+    # build ทั้ง frontend และสร้างตารางในฐานข้อมูลให้เรียบร้อยก่อนสตาร์ท
+    buildCommand: npm ci && npm run deploy:prepare
+    startCommand: npm start
+
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # จำเป็นเมื่ออยู่หลัง proxy ของ Render ไม่งั้นการจำกัดจำนวนครั้งล็อกอิน
+      # จะนับผู้ใช้ทุกคนรวมเป็นคนเดียวกัน
+      - key: TRUST_PROXY
+        value: "true"
+
+      # ไม่ต้องตั้ง API_PORT — Render กำหนด PORT ให้เอง และเซิร์ฟเวอร์จะใช้ค่านั้น
+      # เมื่อไม่มี API_PORT (ดูคอมเมนต์ใน server/index.js)
+
+      # Render สร้างค่าสุ่มให้เองครั้งแรก ไม่ต้องกรอก
+      - key: SESSION_SECRET
+        generateValue: true
+
+      # ต้องกรอกเองใน Dashboard — ห้ามเก็บไว้ในไฟล์นี้
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: "true"
+      - key: LINE_CHANNEL_ACCESS_TOKEN
+        sync: false
+      - key: LINE_MOCK
+        value: "false"
