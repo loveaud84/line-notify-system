@@ -42,9 +42,9 @@ async function main() {
     );
   }
 
-  if (password.length < 12) {
+  if (password.length < 10) {
     return fail(
-      'ตั้งรหัสผ่านผ่านตัวแปรสภาพแวดล้อม ADMIN_PASSWORD และต้องยาวอย่างน้อย 12 ตัวอักษร\n' +
+      'ตั้งรหัสผ่านผ่านตัวแปรสภาพแวดล้อม ADMIN_PASSWORD และต้องยาวอย่างน้อย 10 ตัวอักษร\n' +
         '     ไม่รับรหัสผ่านทาง argument เพราะจะติดอยู่ใน history ของ shell',
     );
   }
